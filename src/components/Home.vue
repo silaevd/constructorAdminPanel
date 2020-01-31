@@ -1,34 +1,53 @@
 <template>
-  <div class="hello">
-    <h1>
-      <router-link to="/sectionList">С Е К Ц И И</router-link>
-    </h1>
+  <div>
 
-    <hr>
-    <router-view></router-view>
-    <hr>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <header>
+      <div class="logo">
+        <span>Form-Constructor | Admin Panel</span>
+      </div>
+      <nav>
+        <div class="menu">
+          <router-link to="/" class="link">Главная</router-link>
+          <a href="" class="link">Выход</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="wrapper">
+
+      <aside>
+        <div class="block">
+          <div class="block__header">
+            <span>Меню 1</span>
+          </div>
+          <div class="block__body">
+            <router-link to="/sectionList" class="link">Секции</router-link>
+          </div>
+        </div>
+      </aside>
+
+      <main>
+        <router-view></router-view>
+      </main>
+
+    </div>
+
   </div>
+
+
 </template>
 
 <script>
-export default {
-  name: 'Home',
-  props: {
+  export default {
+    name: 'Home',
+    props: {
 
+    }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 h3 {
   margin: 40px 0 0;
 }
