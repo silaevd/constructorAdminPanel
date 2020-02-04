@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "success": true
+  },
+  "data":
+    {
+      "id": 0,
+      "name": "!!!!!11111",
+      "slug": "slug_1",
+      "status": 1,
+      "fields": [],
+      "created_at": "2020-02-01 14:08:23",
+      "updated_at": "2020-02-01 14:08:23"
+    }
+
+}

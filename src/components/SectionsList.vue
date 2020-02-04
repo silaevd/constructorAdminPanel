@@ -34,19 +34,21 @@
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
-                        <tr>
-                            <td>id</td>
-                            <td>name</td>
-                            <td>slug</td>
-                            <td>Active</td>
-                            <td>createdAt</td>
+                        <tr v-for="(item, id) in sections" v-bind:key="id">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.slug }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.created_at}}</td>
                             <td class="tableActions">
-                                <button class="btn btn-aqua btn-link">
-                                    <a href="">
+
+                                <router-link :to="{ name: 'section', params: { id: id }}">
+                                    <button class="btn btn-aqua btn-link">
                                         <i class="fas fa-eye"></i>
                                         View
-                                    </a>
-                                </button>
+                                    </button>
+                                </router-link>
+
                                 <button class="btn btn-blue btn-link">
                                     <a href="">
                                         <i class="fas fa-edit"></i>
@@ -71,10 +73,24 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
-        name: 'SectionList',
+        name: 'SectionsList',
+        data() {
+            return {
+                // url: 'https://api.coindesk.com/v1/bpi/currentprice.json',
+                url: 'http://localhost:8080/data.json',
+                sections: [],
+            }
+        },
         props: {
 
+        },
+        mounted() {
+            axios
+                .get(this.url)
+                .then(response => {this.sections = response.data.data})
         }
     }
 </script>
