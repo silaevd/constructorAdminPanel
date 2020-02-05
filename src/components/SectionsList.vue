@@ -16,7 +16,7 @@
                         </button>
                     </div>
                     <div class="searchBlock">
-                        <input type="search">
+                        <input type="search" v-model="sectionsSearch">
                         <div class="icon-btn">
                             <i class="fas fa-search"></i>
                         </div>
@@ -34,7 +34,8 @@
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
-                        <tr v-for="(item, id) in sections" v-bind:key="id">
+                        <tr v-for="(item, id) in filterBy(sections, sectionsSearch, 'name')"
+                            v-bind:key="id">
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.slug }}</td>
@@ -74,17 +75,24 @@
 
 <script>
     import axios from 'axios'
+    import Vue2Filters from 'vue2-filters'
 
     export default {
         name: 'SectionsList',
+        mixins: [Vue2Filters.mixin],
+
         data() {
             return {
-                // url: 'https://api.coindesk.com/v1/bpi/currentprice.json',
+                sectionsSearch: '',
                 url: 'http://localhost:8080/data.json',
                 sections: [],
+
             }
         },
         props: {
+
+        },
+        computed:{
 
         },
         mounted() {
