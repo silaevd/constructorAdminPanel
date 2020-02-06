@@ -8,12 +8,12 @@
 
                 <div class="toolsBlock">
                     <div class="addNew">
-                        <button class="btn btn-green btn-link">
-                            <a href="">
+                        <router-link :to="{ name: 'newSection'}">
+                            <button class="btn btn-green btn-link">
                                 <i class="fas fa-plus"></i>
                                 Add New
-                            </a>
-                        </button>
+                            </button>
+                        </router-link>
                     </div>
                     <div class="searchBlock">
                         <input type="search" v-model="sectionsSearch">

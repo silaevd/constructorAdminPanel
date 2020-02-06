@@ -21,7 +21,7 @@
             <span>Меню 1</span>
           </div>
           <div class="block__body">
-            <router-link to="/sectionsList" class="link">Секции</router-link>
+            <router-link :to="{ name: 'SectionsList'}" class="link">Секции</router-link>
           </div>
         </div>
       </aside>

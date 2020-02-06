@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import SectionsList from '@/components/SectionsList.vue'
 import Section from '@/components/Section.vue'
+import newSection from "./components/newSection";
 
 Vue.use(Router)
 
@@ -11,6 +12,7 @@ export default new Router({
         {
             path: '/sectionsList',
             component: SectionsList,
+            name: 'SectionsList',
             props: true
         },
         {
@@ -18,6 +20,11 @@ export default new Router({
             component: Section,
             name: 'section',
             props: {id: true}
+        },
+        {
+            path: '/newSection',
+            component: newSection,
+            name: 'newSection',
         },
     ]
 })
