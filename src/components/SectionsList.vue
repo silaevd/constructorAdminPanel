@@ -43,7 +43,7 @@
                             <td>{{ item.created_at}}</td>
                             <td class="tableActions">
 
-                                <router-link :to="{ name: 'section', params: { id: id }}">
+                                <router-link :to="{ name: 'section', params: { id: item.id }}">
                                     <button class="btn btn-aqua btn-link">
                                         <i class="fas fa-eye"></i>
                                         View
@@ -84,7 +84,8 @@
         data() {
             return {
                 sectionsSearch: '',
-                url: 'http://localhost:8080/data.json',
+                // url: 'http://localhost:8080/data.json',
+                url: 'http://localhost/v1/sections',
                 sections: [],
 
             }

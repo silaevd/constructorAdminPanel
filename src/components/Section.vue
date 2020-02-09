@@ -16,7 +16,7 @@
         name: 'Section',
         data() {
             return {
-                url: 'http://localhost:8080/data'+ this.$route.params.id +'.json',
+                url: 'http://localhost/v1/sections/'+ this.$route.params.id,
                 item: {},
             }
         },

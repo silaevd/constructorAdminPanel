@@ -30,8 +30,7 @@
                     <div class="block">
                         <div class="block__header">Поля</div>
                         <div class="block__body sectionFields">
-                            <div v-for="(input, id) in inputs" :key="input.id" class="inputGroup">
-                                <input type="hidden" name="" :id="id">
+                            <div v-for="(input, index) in inputs" :key="index" class="inputGroup">
                                 <label for="">{{input.labelForName}}</label>
                                 <input type="text">
                                 <label for="">{{input.labelForType}}</label>
@@ -71,7 +70,6 @@
                     'button'
                 ],
                 inputs: [{
-                    id: '0',
                     labelForName: 'Имя',
                     labelForType: 'Тип',
                     value: '',
@@ -89,7 +87,6 @@
         methods: {
             addInput() {
                 this.inputs.push({
-                    id: `${++this.counter}`,
                     labelForName: 'Имя',
                     labelForType: 'Тип',
                     value: '',
