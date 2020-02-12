@@ -71,6 +71,7 @@
                     <div class="page"
                          v-for="page in pages"
                          :key="page"
+                         :class="{page_selected: page === pageNumber}"
                          @click="pageClick(page)">{{ page }}</div>
                 </div>
 
@@ -90,7 +91,7 @@
         data() {
             return {
                 sectionsSearch: '',
-                url: 'http://localhost:8080/data.json',
+                url: 'https://apic.stereoflo.ru/v1/sections',
                 // url: 'http://localhost/v1/sections',
                 sections: [],
                 sectionsPerPage: 10,
@@ -153,6 +154,18 @@
                 box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
                 transition-duration: 0.2s;
                 transition-property: box-shadow;
+            }
+            &_selected {
+                background: #6c747d;
+                color: #fff;
+                border-color: #6c747d;
+                &:hover {
+                    background: #6c747d;
+                    color: #fff;
+                    border-color: #6c747d;
+                    box-shadow: none;
+                    cursor: default;
+                }
             }
         }
     }

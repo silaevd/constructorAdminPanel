@@ -16,7 +16,7 @@
         name: 'Section',
         data() {
             return {
-                url: 'http://localhost/v1/sections/'+ this.$route.params.id,
+                url: 'https://apic.stereoflo.ru/v1/sections/'+ this.$route.params.id,
                 item: {},
             }
         },
