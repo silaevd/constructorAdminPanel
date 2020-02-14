@@ -61,13 +61,7 @@
                     'text',
                     'checkbox',
                     'file',
-                    'hidden',
-                    'image',
-                    'password',
                     'radio',
-                    'reset',
-                    'submit',
-                    'button'
                 ],
                 inputs: [{
                     labelForName: 'Имя',

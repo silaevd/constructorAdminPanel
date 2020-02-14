@@ -8,7 +8,6 @@
                 <div class="item" v-for="(item, id) in items" :key="id">
                     <p>{{ item.name }}</p>
                     <p v-for="(field, id) in item.data" :key="id">
-
                         <tamplate v-if="field.field.type === 'text'">
                             <input type="text" :value="field.data">
                         </tamplate>
