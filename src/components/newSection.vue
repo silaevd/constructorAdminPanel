@@ -5,7 +5,7 @@
 
                 <span>Новая секция</span>
 
-                <button @click="addInput" class="btn btn-green" data-modal="modal_1">
+                <button @click="addInput" class="btn btn-green">
                     <i class="fas fa-plus"></i>
                     Добавить поле
                 </button>
@@ -16,11 +16,11 @@
 
                     <div class="inputGroup">
                         <label for="name">Название:</label>
-                        <input type="text" id="name" name="name" value="">
+                        <input type="text" id="name" name="name" value="" v-model="post.name">
                     </div>
                     <div class="inputGroup">
                         <label for="slug">Сcылка:</label>
-                        <input type="text" id="slug" name="slug" value="">
+                        <input type="text" id="slug" name="slug" value="" v-model="post.slug">
                     </div>
                     <div class="inputGroup">
                         <label for="isActive">Активен?:</label>
@@ -32,11 +32,13 @@
                         <div class="block__body sectionFields">
                             <div v-for="(input, index) in inputs" :key="index" class="inputGroup">
                                 <label for="">{{input.labelForName}}</label>
-                                <input type="text">
+                                <input type="text" v-model="field.name">
                                 <label for="">{{input.labelForType}}</label>
-                                <select name="" id="">
-                                    <option value="" v-for="(type, index) in inputTypes" :key="index">{{ type
-                                        }}</option>
+                                <select name="" id="" v-model="field.type">
+                                    <option disabled value="Выберите тип"></option>
+                                    <option v-for="(type, index) in inputTypes" :key="index">
+                                        {{ type }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -50,13 +52,11 @@
 </template>
 
 <script>
-
     export default {
         name: 'newSection',
 
         data() {
             return {
-                counter: 0,
                 inputTypes: [
                     'text',
                     'checkbox',
@@ -75,7 +75,15 @@
                     value: '',
                     inputType: this.inputTypes,
                 }],
-
+                post: {
+                    name: '',
+                    slug: '',
+                    fields: []
+                },
+                field: {
+                    name: '',
+                    type: '',
+                }
             }
         },
         props: {
@@ -92,6 +100,9 @@
                     value: '',
                     inputType: this.inputTypes,
                 });
+            },
+            addFieldsInPost() {
+
             }
         }
     }

@@ -27,7 +27,7 @@
                     <table>
                         <tbody>
                         <tr>
-                            <th>ID</th>
+<!--                            <th>ID</th>-->
                             <th>Name</th>
                             <th>Slug</th>
                             <th>Status</th>
@@ -36,32 +36,33 @@
                         </tr>
                         <tr v-for="(item, id) in filterBy(pagination, sectionsSearch, 'name')"
                             v-bind:key="id">
-                            <td>{{ item.id }}</td>
+<!--                            <td>{{ item.id }}</td>-->
                             <td>{{ item.name }}</td>
                             <td>{{ item.slug }}</td>
                             <td>{{ item.status }}</td>
                             <td>{{ item.created_at}}</td>
                             <td class="tableActions">
 
-                                <router-link :to="{ name: 'section', params: { id: item.id }}">
+                                <router-link :to="{ name: 'items', params: { id: item.id}}">
                                     <button class="btn btn-aqua btn-link">
                                         <i class="fas fa-eye"></i>
                                         View
                                     </button>
                                 </router-link>
 
-                                <button class="btn btn-blue btn-link">
-                                    <a href="">
-                                        <i class="fas fa-edit"></i>
-                                        Edit
-                                    </a>
-                                </button>
-                                <button class="btn btn-red btn-link">
-                                    <a href="">
+                                <router-link :to="{ name: 'sectionInfo', params: { id: item.id}}">
+                                    <button class="btn btn-blue btn-link">
+                                        <i class="fas fa-info-circle"></i>
+                                        Info
+                                    </button>
+                                </router-link>
+
+                                <router-link :to="{}">
+                                    <button class="btn btn-red btn-link">
                                         <i class="fas fa-trash-alt"></i>
                                         Delete
-                                    </a>
-                                </button>
+                                    </button>
+                                </router-link>
                             </td>
                         </tr>
                         </tbody>
@@ -126,6 +127,20 @@
 </script>
 
 <style scoped lang="scss">
+    .block {
+        width: 955px;
+    }
+    .tableBlock {
+        white-space: nowrap;
+    }
+    .tableActions {
+        a {
+            margin-right: 10px;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
     .pagination {
         display: flex;
         justify-content: flex-end;

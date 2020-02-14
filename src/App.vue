@@ -10,7 +10,7 @@ import Home from './views/Home.vue'
 export default {
   name: 'app',
   components: {
-    Home
+    Home,
   },
   methods: {
 
@@ -159,6 +159,7 @@ export default {
     width: 100%;
     min-height: 100vh;
     max-width: 300px;
+      min-width: 280px;
     /*background: #5eb5e0;*/
     margin-right: 15px;
     padding: 0 10px;
