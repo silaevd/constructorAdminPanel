@@ -7,17 +7,17 @@
             <div class="block__body">
                 <div class="item" v-for="(item, id) in items" :key="id">
                     <p>{{ item.name }}</p>
-                    <p v-for="(fields, id) in item.data" :key="id">
+                    <p v-for="(field, id) in item.data" :key="id">
 
-                        <tamplate v-if="fields.field.type === 'text'">
-                            <input type="text" :value="fields.data">
+                        <tamplate v-if="field.field.type === 'text'">
+                            <input type="text" :value="field.data">
                         </tamplate>
 
-                        <tamplate v-else-if="fields.field.type === 'textarea'">
-                            <textarea type="text" :value="fields.data"></textarea>
+                        <tamplate v-else-if="field.field.type === 'textarea'">
+                            <textarea type="text" :value="field.data"></textarea>
                         </tamplate>
 
-                        <tamplate v-else-if="fields.field.type === 'file'">
+                        <tamplate v-else-if="field.field.type === 'file'">
                             <input type="file" accept="image/png, image/jpeg">
                         </tamplate>
                     </p>
