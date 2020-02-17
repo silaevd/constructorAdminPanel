@@ -32,9 +32,9 @@
                         <div class="block__body sectionFields">
                             <div v-for="(input, index) in inputs" :key="index" class="inputGroup">
                                 <label for="">{{input.labelForName}}</label>
-                                <input type="text" v-model="field.name">
+                                <input type="text" v-model="inputs.name">
                                 <label for="">{{input.labelForType}}</label>
-                                <select name="" id="" v-model="field.type">
+                                <select name="" id="" v-model="inputs.type">
                                     <option disabled value="Выберите тип"></option>
                                     <option v-for="(type, index) in inputTypes" :key="index">
                                         {{ type }}
@@ -66,6 +66,8 @@
                 inputs: [{
                     labelForName: 'Имя',
                     labelForType: 'Тип',
+                    name: '',
+                    type: '',
                     value: '',
                     inputType: this.inputTypes,
                 }],
@@ -91,6 +93,8 @@
                 this.inputs.push({
                     labelForName: 'Имя',
                     labelForType: 'Тип',
+                    name: '',
+                    type: '',
                     value: '',
                     inputType: this.inputTypes,
                 });

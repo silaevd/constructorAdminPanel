@@ -28,8 +28,8 @@
         </div>
         <div class="block">
             <div class="block__header">Поля секции</div>
-            <div class="block__body">
-                <p v-for="field in item.fields" :key="field.id">
+            <div class="block__body fields">
+                <div v-for="field in item.fields" :key="field.id" class="fields__item">
                     <span class="filedName">
                         <span class="key">Имя:</span>
                         <span class="value">{{ field.name }}</span>
@@ -38,7 +38,8 @@
                         <span class="key">Тип:</span>
                         <span class="value">{{ field.type }}</span>
                     </span>
-                </p>
+                    <div class="divider"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -69,6 +70,18 @@
 </script>
 
 <style scoped lang="scss">
+    .fields {
+        text-align: center;
+        &__item {
+            margin: 15px 0;
+        }
+        .divider {
+            width: 70%;
+            height: 1px;
+            margin: 15px auto 0;
+            background: rgba(212, 212, 212, 0.5);
+        }
+    }
     .key {
         display: inline-block;
         width: 160px;
@@ -76,9 +89,10 @@
     }
     .value {
         display: inline-block;
-        background: #e8e8e8;
+        background: #f1f1f1;
         padding: 3px 10px;
         width: 180px;
+        border-radius: 4px;
     }
     .fieldType {
         margin-right: 30px;
