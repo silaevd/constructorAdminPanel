@@ -45,16 +45,14 @@
 
                                 </select>
                                 <button @click.prevent="delInput(index)">del</button>
-                                <p>{{input}}</p>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-blue">Сохранить</button>
 
+                    <button class="btn btn-blue">Сохранить</button>
 
                 </form>
 
-                <pre>{{ $data.inputs | json }}</pre>
             </div>
 
         </div>
