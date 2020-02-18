@@ -11,7 +11,7 @@
                 </button>
             </div>
             <div class="block__body">
-                <form action="" method="post" class="form">
+                <form class="form">
                     <input type="hidden">
 
                     <div class="inputGroup">
@@ -24,27 +24,37 @@
                     </div>
                     <div class="inputGroup">
                         <label for="isActive">Активен?:</label>
-                        <input type="checkbox" id="isActive" name="isActive" >
+                        <input type="checkbox" id="isActive" name="isActive">
                     </div>
 
                     <div class="block">
                         <div class="block__header">Поля</div>
                         <div class="block__body sectionFields">
                             <div v-for="(input, index) in inputs" :key="index" class="inputGroup">
+
                                 <label for="">{{input.labelForName}}</label>
-                                <input type="text" v-model="inputs.name">
+                                <input type="text" v-model="input.name">
+
                                 <label for="">{{input.labelForType}}</label>
-                                <select name="" id="" v-model="inputs.type">
-                                    <option disabled value="Выберите тип"></option>
+                                <select name="" id="" v-model="input.type">
+
+                                    <option selected disabled>Выберите тип</option>
                                     <option v-for="(type, index) in inputTypes" :key="index">
                                         {{ type }}
                                     </option>
+
                                 </select>
+                                <button @click.prevent="delInput(index)">del</button>
+                                <p>{{input}}</p>
                             </div>
                         </div>
                     </div>
                     <button class="btn btn-blue">Сохранить</button>
+
+
                 </form>
+
+                <pre>{{ $data.inputs | json }}</pre>
             </div>
 
         </div>
@@ -57,6 +67,7 @@
 
         data() {
             return {
+                count: 0,
                 inputTypes: [
                     'text',
                     'checkbox',
@@ -68,7 +79,6 @@
                     labelForType: 'Тип',
                     name: '',
                     type: '',
-                    value: '',
                     inputType: this.inputTypes,
                 }],
                 post: {
@@ -76,10 +86,9 @@
                     slug: '',
                     fields: []
                 },
-                field: {
-                    name: '',
-                    type: '',
-                }
+                fields: [],
+                name: [],
+                type: []
             }
         },
         props: {
@@ -93,11 +102,14 @@
                 this.inputs.push({
                     labelForName: 'Имя',
                     labelForType: 'Тип',
-                    name: '',
                     type: '',
                     value: '',
                     inputType: this.inputTypes,
                 });
+
+            },
+            delInput: function (index) {
+                this.inputs.splice(index, 1);
             },
             addFieldsInPost() {
 
