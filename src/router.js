@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import SectionsList from '@/components/SectionsList.vue'
 import SectionInfo from '@/components/SectionInfo.vue'
 import newSection from "./components/newSection";
-import items from "./components/items";
+import itemsList from "./components/itemsList";
+import item from "./components/item";
 
 Vue.use(Router)
 
@@ -11,24 +12,30 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/sectionsList',
+            path: '/sections-list',
             component: SectionsList,
             name: 'SectionsList',
         },
         {
-            path: '/sectionInfo/:id',
+            path: '/section-info/:id',
             component: SectionInfo,
             name: 'sectionInfo',
             props: true
         },
         {
-            path: '/items/:id',
-            component: items,
-            name: 'items',
+            path: '/section/:id/items',
+            component: itemsList,
+            name: 'itemsList',
             props: true
         },
         {
-            path: '/newSection',
+            path: '/section/:sectionID/item/:itemID',
+            component: item,
+            name: 'item',
+            props: true,
+        },
+        {
+            path: '/new-section',
             component: newSection,
             name: 'newSection',
         },

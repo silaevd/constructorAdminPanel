@@ -2,7 +2,7 @@
     <div>
         <div class="block">
             <div class="block__header">
-                <span>Секции</span>
+                <span>Секция: </span>
             </div>
             <div class="block__body">
 
@@ -16,7 +16,7 @@
                         </router-link>
                     </div>
                     <div class="searchBlock">
-                        <input type="search" v-model="sectionsSearch">
+                        <input type="search" v-model="itemsSearch">
                         <div class="icon-btn">
                             <i class="fas fa-search"></i>
                         </div>
@@ -27,35 +27,31 @@
                     <table>
                         <tbody>
                         <tr>
-<!--                            <th>ID</th>-->
+                            <!--                            <th>ID</th>-->
                             <th>Name</th>
-                            <th>Slug</th>
-                            <th>Status</th>
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
-                        <tr v-for="(item, id) in filterBy(pagination, sectionsSearch, 'name')"
+                        <tr v-for="(item, id) in filterBy(pagination, itemsSearch, 'name')"
                             v-bind:key="id">
-<!--                            <td>{{ item.id }}</td>-->
+                            <!--                            <td>{{ item.id }}</td>-->
                             <td>{{ item.name }}</td>
-                            <td>{{ item.slug }}</td>
-                            <td>{{ item.status }}</td>
                             <td>{{ item.created_at}}</td>
                             <td class="tableActions">
 
-                                <router-link :to="{ name: 'itemsList', params: { id: item.id}}">
+                                <router-link :to="{ name: 'item', params: { itemID: item.id, sectionID: sectionId}}">
                                     <button class="btn btn-aqua btn-link">
                                         <i class="fas fa-eye"></i>
                                         View
                                     </button>
                                 </router-link>
 
-                                <router-link :to="{ name: 'sectionInfo', params: { id: item.id}}">
-                                    <button class="btn btn-blue btn-link">
-                                        <i class="fas fa-info-circle"></i>
-                                        Info
-                                    </button>
-                                </router-link>
+<!--                                <router-link :to="{ name: 'sectionInfo', params: { id: item.id}}">-->
+<!--                                    <button class="btn btn-blue btn-link">-->
+<!--                                        <i class="fas fa-info-circle"></i>-->
+<!--                                        Info-->
+<!--                                    </button>-->
+<!--                                </router-link>-->
 
                                 <router-link :to="{}">
                                     <button class="btn btn-red btn-link">
@@ -79,48 +75,49 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
     import axios from 'axios'
     import Vue2Filters from 'vue2-filters'
 
-    export default {
-        name: 'SectionsList',
-        mixins: [Vue2Filters.mixin],
 
+    export default {
+        name: 'items',
+        mixins: [Vue2Filters.mixin],
         data() {
             return {
-                sectionsSearch: '',
-                url: 'https://apic.stereoflo.ru/v1/sections?limit=30',
-                sections: [],
-                sectionsPerPage: 10,
+                sectionId: this.$route.params.id,
+                url: 'https://apic.stereoflo.ru/v1/sections/' + this.$route.params.id + '/items',
+                items: [],
+                itemsSearch: '',
+                itemsPerPage: 10,
                 pageNumber: 1,
-                errors: []
-
             }
         },
         props: {
+
         },
         computed:{
             pages() {
-                return Math.ceil(this.sections.length / 10);
+                return Math.ceil(this.items.length / 10);
             },
             pagination() {
-                let from = (this.pageNumber -1) * this.sectionsPerPage;
-                let to = from + this.sectionsPerPage;
-                return this.sections.slice(from , to);
+                let from = (this.pageNumber -1) * this.itemsPerPage;
+                let to = from + this.itemsPerPage;
+                return this.items.slice(from , to);
             }
         },
         methods: {
-          pageClick(page) {
-              this.pageNumber = page;
-          }
+            pageClick(page) {
+                this.pageNumber = page;
+            }
         },
         mounted() {
             axios
                 .get(this.url)
-                .then(response => {this.sections = response.data.data})
+                .then(response => {this.items = response.data.data.items})
         }
     }
 </script>
@@ -133,6 +130,7 @@
         white-space: nowrap;
     }
     .tableActions {
+        justify-content: center;
         a {
             margin-right: 10px;
         }

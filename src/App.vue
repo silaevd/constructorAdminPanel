@@ -96,6 +96,12 @@ export default {
     outline: none;
     /*-webkit-appearance: none;*/
   }
+  .form .inputGroup textarea {
+    padding: 7px 10px;
+    border: 1px solid #d2d8de;
+    border-radius: 4px;
+    outline: none;
+  }
   .form .inputGroup span {
     width: calc(65% - 10px);
     max-width: 300px;
@@ -159,7 +165,7 @@ export default {
     width: 100%;
     min-height: 100vh;
     max-width: 300px;
-      min-width: 280px;
+    min-width: 280px;
     /*background: #5eb5e0;*/
     margin-right: 15px;
     padding: 0 10px;
@@ -171,7 +177,7 @@ export default {
     display: inline-block;
     min-height: 100vh;
     flex-grow: 1;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
   }
   /*Login*/
   .loginWrapper {

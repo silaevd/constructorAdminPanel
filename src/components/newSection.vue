@@ -24,7 +24,7 @@
                     </div>
                     <div class="inputGroup">
                         <label for="isActive">Активен?:</label>
-                        <input type="checkbox" id="isActive" name="isActive">
+                        <input type="checkbox" id="isActive" name="isActive" v-model="post.isActive">
                     </div>
 
                     <div class="block">
@@ -32,24 +32,33 @@
                         <div class="block__body sectionFields">
                             <div v-for="(input, index) in inputs" :key="index" class="inputGroup">
 
-                                <label for="">{{input.labelForName}}</label>
-                                <input type="text" v-model="input.name">
+                                <div class="inputGroup__item">
+                                    <label for="">Имя:</label>
+                                    <input type="text" v-model="input.name">
+                                </div>
 
-                                <label for="">{{input.labelForType}}</label>
-                                <select name="" id="" v-model="input.type">
+                                <div class="inputGroup__item">
+                                    <label for="">Тип:</label>
+                                    <select name="" id="" v-model="input.type">
 
-                                    <option selected disabled>Выберите тип</option>
-                                    <option v-for="(type, index) in inputTypes" :key="index">
-                                        {{ type }}
-                                    </option>
+                                        <option v-for="(type, index) in inputTypes" :key="index">
+                                            {{ type }}
+                                        </option>
 
-                                </select>
-                                <button @click.prevent="delInput(index)">del</button>
+                                    </select>
+                                </div>
+
+                                <div class="inputGroup__item">
+                                    <div class="delInput" @click="delInput(index)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
-                    <button class="btn btn-blue">Сохранить</button>
+                    <button class="btn btn-blue" @click.prevent="submit">Отправить</button>
 
                 </form>
 
@@ -60,33 +69,33 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         name: 'newSection',
 
         data() {
             return {
                 count: 0,
+                url: 'https://apic.stereoflo.ru/v1/sections',
                 inputTypes: [
                     'text',
+                    'textarea',
                     'checkbox',
-                    'file',
                     'radio',
+                    'file',
                 ],
                 inputs: [{
-                    labelForName: 'Имя',
-                    labelForType: 'Тип',
                     name: '',
                     type: '',
-                    inputType: this.inputTypes,
                 }],
                 post: {
                     name: '',
                     slug: '',
+                    isActive: true,
                     fields: []
                 },
-                fields: [],
-                name: [],
-                type: []
+                errors: []
             }
         },
         props: {
@@ -98,24 +107,44 @@
         methods: {
             addInput() {
                 this.inputs.push({
-                    labelForName: 'Имя',
-                    labelForType: 'Тип',
+                    name: '',
                     type: '',
-                    value: '',
-                    inputType: this.inputTypes,
                 });
 
             },
-            delInput: function (index) {
+            delInput (index) {
                 this.inputs.splice(index, 1);
             },
-            addFieldsInPost() {
-
+            saveFieldsInPost() {
+                this.post.fields = this.inputs.slice();
+            },
+            submit() {
+                this.saveFieldsInPost();
+                axios
+                    .post(this.url, this.post)
+                    .catch((error) => {this.errors.push(error);
+                });
             }
         }
     }
 </script>
 
 <style scoped lang="scss">
-
+    .delInput {
+        display: inline-block;
+        margin-left: 15px;
+        color: red;
+        font-size: 18px;
+        transition: 0.25s;
+        &:hover {
+            cursor: pointer;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+    }
+    .sectionFields .inputGroup {
+        justify-content: space-around;
+        input, select {
+            min-width: 150px;
+        }
+    }
 </style>
