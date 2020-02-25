@@ -47,6 +47,7 @@ export default {
   }
   .block__header {
     font-size: 18px;
+    min-height: 45px;
     background: #f7f7f7;
     padding: 10px 15px;
     border-top-left-radius: 3px;

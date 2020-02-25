@@ -8,7 +8,7 @@
 
                 <div class="toolsBlock">
                     <div class="addNew">
-                        <router-link :to="{ name: 'newSection'}">
+                        <router-link :to="{ name: 'newItem', params: { sectionID: sectionId }}">
                             <button class="btn btn-green btn-link">
                                 <i class="fas fa-plus"></i>
                                 Add New

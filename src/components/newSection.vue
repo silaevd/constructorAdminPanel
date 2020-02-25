@@ -87,7 +87,7 @@
                 ],
                 inputs: [{
                     name: '',
-                    type: '',
+                    id: '',
                 }],
                 post: {
                     name: '',
