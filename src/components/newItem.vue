@@ -12,7 +12,7 @@
                         <input type="text" id="name" name="name" value="" v-model="name">
                     </div>
 
-                    <template v-for="(field, index) in section.fields">
+                    <template v-for="(field, index) in fields">
 
                         <div :key="index" class="inputGroup text" v-if="field.type === 'text'">
                             <label>{{field.name}}:</label>
@@ -30,11 +30,12 @@
 
                     </template>
 
-                    <button class="btn btn-blue">Сохранить</button>
+                    <button @click.prevent="getFieldId" class="btn btn-blue">Сохранить</button>
+<!--                    <button @click.prevent="getid" class="btn btn-green">test</button>-->
                 </form>
 
             </div>
-<pre>{{section}}</pre>
+<pre>{{fields}}</pre>
         </div>
     </div>
 </template>
@@ -54,14 +55,14 @@
                 inputTypes: [
 
                 ],
-                fields: [{
-                    field_id: '',
-                    data: ''
-                }],
+                fields: [],
                 post: {
-                    name: this.name,
+                    name: '',
                     section_id: this.sectionID,
-                    data: []
+                    data: [{
+                        field_id: '',
+                        data: ''
+                    }]
                 },
                 errors: []
             }
@@ -82,14 +83,40 @@
                     .post(this.url, this.post)
                     .catch((error) => {this.errors.push(error);
                     });
-            }
+            },
+            getid() {
+                let item = [];
+                for (let field of this.section.fields) {
+                    item.push(field);
+                }
+                for (let i of item) {
+                    this.fields.push({
+                        field_id : i.id,
+                        type: i.type,
+                        name: i.name
+                    })
+                }
+
+            },
+        },
+        beforeMount() {
+
         },
         mounted() {
+
+        },
+        created() {
             axios
                 .get(this.url)
                 .then(response => {
-                    this.section = response.data.data
+                    this.section = response.data.data,
+                    this.getid()
                 })
+        },
+        beforeUpdate() {
+
+        },
+        updated() {
         }
     }
 </script>
