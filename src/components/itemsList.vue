@@ -117,7 +117,7 @@
         mounted() {
             axios
                 .get(this.url)
-                .then(response => {this.items = response.data.data.items})
+                .then(response => {this.items = response.data.data})
         }
     }
 </script>

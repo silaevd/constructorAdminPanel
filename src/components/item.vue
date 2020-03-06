@@ -57,8 +57,8 @@
             axios
                 .get(this.url)
                 .then(response => {
-                    this.item = response.data.data.items[0],
-                    this.itemName = response.data.data.items[0].name
+                    this.item = response.data.data,
+                    this.itemName = response.data.data.name
                 })
         }
     }

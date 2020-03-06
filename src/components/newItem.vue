@@ -16,12 +16,12 @@
 
                         <div :key="index" class="inputGroup text" v-if="field.type === 'text'">
                             <label>{{field.name}}:</label>
-                            <input type="text" value="" :id="field.id">
+                            <input type="text" value="" :id="field.id" v-model="field.data">
                         </div>
 
                         <div :key="index" class="inputGroup textarea" v-else-if="field.type === 'textarea'">
                             <label>{{field.name}}:</label>
-                            <textarea type="text" :id="field.id"></textarea>
+                            <textarea type="text" :id="field.id" v-model="field.data"></textarea>
                         </div>
 
                         <div :key="index" class="inputGroup file" v-else-if="field.type === 'file'">
@@ -30,12 +30,11 @@
 
                     </template>
 
-                    <button @click.prevent="getFieldId" class="btn btn-blue">Сохранить</button>
-<!--                    <button @click.prevent="getid" class="btn btn-green">test</button>-->
+                    <button @click.prevent="submit" class="btn btn-blue">Сохранить</button>
+                    <button @click.prevent="clonearr" class="btn btn-green">clonearr</button>
                 </form>
 
             </div>
-<pre>{{fields}}</pre>
         </div>
     </div>
 </template>
@@ -49,20 +48,19 @@
         data() {
             return {
                 count: 0,
-                url: 'https://apic.stereoflo.ru/v1/sections/' + this.sectionID,
+                getUrl: 'https://apic.stereoflo.ru/v1/sections/' + this.sectionID,
+                postUrl: 'https://apic.stereoflo.ru/v1/items',
                 section: [],
                 name: 'Имя итема',
                 inputTypes: [
 
                 ],
                 fields: [],
+                fieldsForData: [],
                 post: {
                     name: '',
                     section_id: this.sectionID,
-                    data: [{
-                        field_id: '',
-                        data: ''
-                    }]
+                    data: []
                 },
                 errors: []
             }
@@ -75,16 +73,18 @@
         },
         methods: {
             saveFieldsInPost() {
-                this.post.fields = this.inputs.slice();
+                this.clonearr();
+                this.post.name = this.name;
+                this.post.data = this.fieldsForData.slice();
             },
             submit() {
                 this.saveFieldsInPost();
                 axios
-                    .post(this.url, this.post)
+                    .post(this.postUrl, this.post)
                     .catch((error) => {this.errors.push(error);
                     });
             },
-            getid() {
+            saveToFields() {
                 let item = [];
                 for (let field of this.section.fields) {
                     item.push(field);
@@ -93,25 +93,34 @@
                     this.fields.push({
                         field_id : i.id,
                         type: i.type,
-                        name: i.name
+                        name: i.name,
+                        data: 'data'
                     })
                 }
 
             },
+            clonearr() {
+                for (let i of this.fields) {
+                    this.fieldsForData.push({
+                        field_id : i.field_id,
+                        data: i.data
+                    })
+                }
+            }
         },
         beforeMount() {
 
         },
         mounted() {
-
-        },
-        created() {
             axios
-                .get(this.url)
+                .get(this.getUrl)
                 .then(response => {
                     this.section = response.data.data,
-                    this.getid()
+                    this.saveToFields()
                 })
+        },
+        created() {
+
         },
         beforeUpdate() {
 
