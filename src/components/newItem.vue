@@ -25,16 +25,24 @@
                         </div>
 
                         <div :key="index" class="inputGroup file" v-else-if="field.type === 'file'">
-                            <input type="file" accept="image/png, image/jpeg" :id="field.id">
+                            <input
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    :id="field.id" ref="file"
+                                    v-on:input="fileUpload"
+                            >
                         </div>
 
                     </template>
 
                     <button @click.prevent="submit" class="btn btn-blue">Сохранить</button>
-                    <button @click.prevent="clonearr" class="btn btn-green">clonearr</button>
+                    <button @click.prevent="submitFile" class="btn btn-green">submitFile</button>
                 </form>
 
             </div>
+
+            <pre>{{ log }}</pre>
+            <pre>{{ filesResp }}</pre>
         </div>
     </div>
 </template>
@@ -50,8 +58,12 @@
                 count: 0,
                 getUrl: 'https://apic.stereoflo.ru/v1/sections/' + this.sectionID,
                 postUrl: 'https://apic.stereoflo.ru/v1/items',
+                postFilesUrl: 'https://apic.stereoflo.ru/v1/files',
                 section: [],
                 name: 'Имя итема',
+                files: [],
+                filesResp: '',
+                log: '',
                 inputTypes: [
 
                 ],
@@ -97,7 +109,6 @@
                         data: 'data'
                     })
                 }
-
             },
             clonearr() {
                 for (let i of this.fields) {
@@ -106,7 +117,29 @@
                         data: i.data
                     })
                 }
-            }
+            },
+            fileUpload() {
+                this.files = this.$refs.file[0].files[0];
+                this.log = this.$refs.file[0].files[0].type;
+                // this.submitFile();
+            },
+            submitFile() {
+                let formData = new FormData();
+                formData.append('file', this.files);
+                axios.post( this.postFilesUrl,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                )
+                .then(response => {
+                    this.filesResp = response.data
+                })
+                .catch(function(){
+                });
+            },
         },
         beforeMount() {
 
